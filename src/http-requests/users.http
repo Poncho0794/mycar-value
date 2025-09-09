@@ -11,3 +11,6 @@ GET http://localhost:3000/auth/1
 
 ### Get One User by email
 GET http://localhost:3000/auth?email=benbanda07@gmail.com
+
+### Delete One User
+DELETE http://localhost:3000/auth/1
