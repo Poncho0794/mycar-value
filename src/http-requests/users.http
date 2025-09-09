@@ -9,8 +9,16 @@ content-type: application/json
 ### Get One User
 GET http://localhost:3000/auth/1
 
-### Get One User by email
+### Get Users by email
 GET http://localhost:3000/auth?email=benbanda07@gmail.com
 
 ### Delete One User
 DELETE http://localhost:3000/auth/1
+
+### Update User
+PATCH http://localhost:3000/auth/2
+content-type: application/json
+
+{
+    "password": "654321"
+}
