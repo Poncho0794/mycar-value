@@ -7,7 +7,31 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
   create(email: string, password: string) {
+    //Create instance of user
     const user = this.repo.create({ email, password });
+    //Save user instance in db. doing this will also trigger the entity hooks
     return this.repo.save(user);
+  }
+  findOne(id: number) {
+    return this.repo.findOneBy({ id });
+  }
+  find(email: string) {
+    return this.repo.findBy({ email });
+  }
+  async update(id: number, attrs: Partial<User>) {
+    // Needed on this way to trigger the entity hooks
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('user not found');
+    }
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
+  async remove(id: number) {
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('user not found');
+    }
+    return this.repo.remove(user);
   }
 }
